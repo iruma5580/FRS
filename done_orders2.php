@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Prevent "headers already sent" from dashboard_session.php HTML output
   include_once('./include/dashboard_session.php');
   include __DIR__ . '/include/doneconn2.php';
 ?>

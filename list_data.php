@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Buffer output so header() redirects work even after HTML is output by includes
 include_once('./include/dashboard_session.php');
 // include_once('./include/list_data_conn.php');
 

@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Prevent "headers already sent" from dashboard_session.php HTML output
 include_once('./include/dashboard_session.php');
 // include_once('./include/inventory_conn.php');
 require_once __DIR__ . '/phpqrcode-master/lib/qrlib.php';

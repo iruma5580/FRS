@@ -1,5 +1,6 @@
 <?php
 // change_password.php
+ob_start(); // Prevent "headers already sent" from dashboard_session.php HTML output
 
 require './include/db_connect.php';
 include_once('./include/dashboard_session.php');
