@@ -135,15 +135,14 @@ var table = $('#inventoryTable2').DataTable({
 </script>
  -->
 
- <script>
+<script>
 // Clean up modal backdrop and body class on modal close
-// Ensure backdrop and body class cleanup on modal close
 $('#modalEdit').on('hidden.bs.modal', function () {
   $('.modal-backdrop').remove();
   $('body').removeClass('modal-open');
 });
 
-// Event delegation on container with id 'inventoryTable2' for clicks on .btnEdit buttons
+// Edit button handler
 document.getElementById('inventoryTable2').addEventListener('click', function(event) {
   const target = event.target;
 
@@ -152,7 +151,6 @@ document.getElementById('inventoryTable2').addEventListener('click', function(ev
     const modal = document.getElementById('modalEdit');
     if (!modal) return;
 
-    // Populate modal fields from data attributes on the button
     modal.querySelector('input[name="id"]').value = button.getAttribute('data-id') || '';
     modal.querySelector('#edit_asset_code').value = button.getAttribute('data-asset_code') || '';
     modal.querySelector('#edit_asset_name').value = button.getAttribute('data-asset_name') || '';
@@ -166,20 +164,46 @@ document.getElementById('inventoryTable2').addEventListener('click', function(ev
     modal.querySelector('#edit_work_order_number').value = button.getAttribute('data-work_order_number') || '';
     modal.querySelector('#edit_priority_status').value = button.getAttribute('data-priority_status') || '';
 
-    // Set min attribute for due_date input to today if needed
     const dueDateInput = modal.querySelector('#edit_due_date');
     if (dueDateInput) {
       const today = new Date().toISOString().split('T')[0];
       dueDateInput.setAttribute('min', today);
-      if (dueDateInput.value < today) {
-        dueDateInput.value = today;
-      }
+      if (dueDateInput.value < today) dueDateInput.value = today;
     }
 
-    // Show the modal using Bootstrap's jQuery method
     $('#modalEdit').modal('show');
   }
 });
 
-
+// Delete button handler - show confirm modal with correct ID
+$(document).on('click', '.btnDelete', function() {
+  var assetId = $(this).data('id');
+  $('#deleteAssetId').val(assetId);
+  $('#confirmDeleteModal').modal('show');
+});
 </script>
+
+<!-- Confirm Delete Modal (Bootstrap 4) -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form method="POST" action="list_data.php">
+        <input type="hidden" name="action" value="delete" />
+        <input type="hidden" name="id" id="deleteAssetId" value="" />
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmDeleteLabel">Confirm Delete</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to <strong>permanently delete</strong> this asset? This action cannot be undone.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Yes, Delete</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

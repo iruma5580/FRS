@@ -68,6 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $work_order_number = trim($_POST['work_order_number'] ?? '');
         $priority_status = $_POST['priority_status'] ?? '';
         $work_done_status = $_POST['work_done_status'] ?? '';
+        // Prevent ENUM truncation: send NULL if empty
+        $work_done_status_val = $work_done_status ?: null;
 
         if (empty($work_order_number)) {
             $work_order_number = generateWorkOrderNumber($conn);
@@ -93,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $assigned_person_to_fix_val = $assigned_person_to_fix ?: null;
 
                 $stmt = $conn->prepare("UPDATE assets SET notes=?, assigned_person_to_fix=?, due_date=?, work_order_number=?, priority_status=?, work_done_status=? WHERE id=?");
-                $stmt->bind_param("ssssssi", $notes_val, $assigned_person_to_fix_val, $due_date_val, $work_order_number, $priority_status, $work_done_status, $id);
+                $stmt->bind_param("ssssssi", $notes_val, $assigned_person_to_fix_val, $due_date_val, $work_order_number, $priority_status, $work_done_status_val, $id);
                 $stmt->execute();
                 $stmt->close();
 
@@ -341,36 +343,10 @@ function flash($key) {
                                   <i class="fas fa-edit"></i> Edit
                                 </button>
 
-                                <form method="post" style="display:inline;" class="deleteForm">
-                                  <input type="hidden" name="action" value="delete" />
-                                  <input type="hidden" name="id" value="<?= e($a['id']) ?>" />
-                                  <!-- Delete Button triggers modal -->
-<button type="button" class="btn btn-sm btn-danger no-export" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
-    <i class="fas fa-trash-alt"></i> Delete
-</button>
-
-<!-- Modal HTML -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form method="POST" action="delete.php">
-        <div class="modal-header">
-          <h5 class="modal-title" id="confirmDeleteLabel">Confirm Delete</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Are you sure you want to delete this item?
-          <!-- You can add a hidden input here to pass the item ID -->
-          <input type="hidden" name="item_id" value="PUT_ITEM_ID_HERE">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-danger">Yes, Delete</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+                                <button type="button" class="btn btn-sm btn-danger btnDelete no-export"
+                                        data-id="<?= e($a['id']) ?>">
+                                  <i class="fas fa-trash-alt"></i> Delete
+                                </button>
                                 </form>
                               </td>
                             </tr>
@@ -385,7 +361,9 @@ function flash($key) {
                       <div class="modal-content">
                         <div class="modal-header">
                           <h5 class="modal-title" id="modalEditTitle">Edit Asset</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
                         </div>
                         <div class="modal-body">
                           <?php if (!empty($editError)) : ?>
