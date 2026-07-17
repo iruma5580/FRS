@@ -116,12 +116,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imagePath = upload_asset_image('asset_image', $UPLOAD_DIR_FS, $UPLOAD_DIR_WEB);
 
         if ($code && $name && $category && $location) {
-            $stmt = $conn->prepare("INSERT INTO assets (asset_code, asset_name, category, location_name, status, assigned_user, image) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssssss", $code, $name, $category, $location, $status, $assigned_user, $imagePath);
-            $stmt->execute();
-            $stmt->close();
-            header("Location: inventory.php?page=inventory&added=success");
-            exit;
+            try {
+                $stmt = $conn->prepare("INSERT INTO assets (asset_code, asset_name, category, location_name, status, assigned_user, image) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                if (!$stmt) throw new Exception($conn->error);
+                $stmt->bind_param("sssssss", $code, $name, $category, $location, $status, $assigned_user, $imagePath);
+                $stmt->execute();
+                $stmt->close();
+                header("Location: inventory.php?page=inventory&added=success");
+                exit;
+            } catch (Exception $e) {
+                $_SESSION['error'] = "Failed to add asset: " . $e->getMessage();
+                header("Location: inventory.php?page=inventory&added=error");
+                exit;
+            }
         }
     }
 
