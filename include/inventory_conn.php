@@ -1,6 +1,6 @@
 <?php
 
-function e($s) { return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
+function e($s) { return htmlspecialchars((string)($s ?? ''), ENT_QUOTES, 'UTF-8'); }
 
 // Handle POST actions: add, update, delete
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

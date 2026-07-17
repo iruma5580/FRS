@@ -2,7 +2,7 @@
 include_once('./include/dashboard_session.php');
 // include_once('./include/list_data_conn.php');
 
-function e($s) { return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
+function e($s) { return htmlspecialchars((string)($s ?? ''), ENT_QUOTES, 'UTF-8'); }
 
 // Auto-generate work order number in format WO-YYYY-XXXX
 function generateWorkOrderNumber($conn) {
