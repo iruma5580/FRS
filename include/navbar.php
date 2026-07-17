@@ -3,8 +3,8 @@ include_once('./include/dashboard_session.php');
 ?>
 
 <!-- Modal structure -->
-<div id="logoutModal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDesc" tabindex="-1">
-  <div class="modal-content" role="document">
+<div id="logoutModal" class="custom-logout-modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDesc" tabindex="-1">
+  <div class="custom-logout-modal-content" role="document">
     <h2 id="modalTitle">Confirm Logout</h2>
     <p id="modalDesc">Are you sure you want to log out?</p>
     <div class="modal-buttons">
@@ -17,7 +17,7 @@ include_once('./include/dashboard_session.php');
 
 <style>
   /* Modal backdrop */
-  .modal {
+  .custom-logout-modal {
     display: none;
     position: fixed;
     z-index: 9999;
@@ -28,12 +28,12 @@ include_once('./include/dashboard_session.php');
     align-items: center;
     justify-content: center;
   }
-  .modal[aria-hidden="false"] {
+  .custom-logout-modal[aria-hidden="false"] {
     display: flex;
   }
 
   /* Modal box */
-  .modal-content {
+  .custom-logout-modal-content {
   
     color: #000000;
     padding: 24px 32px;
@@ -45,12 +45,12 @@ include_once('./include/dashboard_session.php');
     font-family: Arial, sans-serif;
   }
 
-  .modal-content h2 {
+  .custom-logout-modal-content h2 {
     margin-top: 0;
     font-size: 1.5rem;
   }
 
-  .modal-content p {
+  .custom-logout-modal-content p {
     margin: 16px 0 24px;
     font-size: 1rem;
   }
