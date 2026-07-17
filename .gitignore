@@ -1,0 +1,46 @@
+# ============================================================
+# .gitignore for PHP Project (FRS - RAMSAM System)
+# ============================================================
+
+# --- Environment / Secrets ---
+.env
+.env.local
+.env.production
+config.php
+
+# --- Database connection (contains credentials) ---
+include/db_connect.php
+
+# --- Uploaded files (user-generated content, can be large) ---
+uploads/
+qrcodes/
+include/uploads/
+include/qrcodes/
+
+# --- Temporary / Cache files ---
+*.log
+*.tmp
+*.cache
+/tmp/
+
+# --- OS files ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- IDE / Editor files ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Node / Composer (if added later) ---
+node_modules/
+vendor/
+
+# --- Old / backup files ---
+dito muna/
+trash/
+*.bak
+*Old.php
+old_*.php

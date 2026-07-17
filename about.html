@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevTeam — About Us</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --n900:#021830;--n800:#042C53;--n700:#0C447C;--n500:#185FA5;
+  --n400:#378ADD;--n200:#85B7EB;--n100:#B5D4F4;--n50:#E6F1FB;
+  --white:#ffffff;--bg:#f0f6fc;
+  --ff:'Plus Jakarta Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--ff);background:var(--bg);color:var(--n900);overflow-x:hidden}
+
+/* NAV */
+nav{background:var(--n900);height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 6vw;position:sticky;top:0;z-index:200}
+.nav-logo{font-weight:800;font-size:1.15rem;color:#fff;letter-spacing:.03em}
+.nav-logo span{color:var(--n200)}
+.nav-links a{color:var(--n100);text-decoration:none;font-size:.83rem;font-weight:500;margin-left:2rem;letter-spacing:.04em;transition:color .18s}
+.nav-links a:hover{color:#fff}
+
+/* HERO */
+.hero{background:var(--n900);padding:90px 6vw 70px;overflow:hidden;position:relative}
+.hero-ring{position:absolute;border-radius:50%;border:60px solid rgba(255,255,255,.03)}
+.hero-ring.r1{width:600px;height:600px;top:-200px;right:-150px}
+.hero-ring.r2{width:360px;height:360px;bottom:-120px;left:10%}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.14);color:var(--n100);font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:26px}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--n200);display:inline-block}
+.hero h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;color:#fff;line-height:1.1;max-width:580px;margin-bottom:18px}
+.hero h1 em{font-style:normal;color:var(--n200)}
+.hero p{color:rgba(255,255,255,.55);font-size:1rem;line-height:1.8;max-width:450px;margin-bottom:46px}
+.hero-stats{display:flex;gap:44px}
+.stat strong{display:block;font-size:2.2rem;font-weight:800;color:#fff;line-height:1}
+.stat span{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:4px;display:block}
+
+/* SECTION */
+.section{padding:80px 6vw}
+.section-eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--n500);margin-bottom:8px}
+.section-heading{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;color:var(--n800);margin-bottom:52px}
+
+/* ROLE DIVIDER */
+.role-block{margin-bottom:56px}
+.role-row{display:flex;align-items:center;gap:14px;margin-bottom:30px}
+.role-pill{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:100px;white-space:nowrap}
+.rp-prog{background:var(--n900);color:var(--n100)}
+.rp-des{background:var(--n500);color:var(--n50)}
+.rp-res{background:var(--n50);color:var(--n700);border:1px solid var(--n200)}
+.role-line{flex:1;height:1px;background:rgba(55,138,221,.18)}
+
+/* CARDS GRID */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px}
+
+/* CARD */
+.card{background:var(--white);border-radius:20px;border:1px solid rgba(55,138,221,.13);overflow:hidden;transition:transform .24s,box-shadow .24s;cursor:default}
+.card:hover{transform:translateY(-6px);box-shadow:0 24px 48px rgba(12,68,124,.13)}
+.card-banner{height:80px;position:relative;display:flex;align-items:flex-end;padding:0 22px 0}
+.cb-prog{background:var(--n900)}
+.cb-des{background:var(--n500)}
+.cb-res{background:var(--n200)}
+.card-banner-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.12) 1px,transparent 1px);background-size:18px 18px}
+
+/* PHOTO */
+.photo-wrap{position:absolute;bottom:-32px;left:22px;width:68px;height:68px;border-radius:50%;border:3px solid var(--white);overflow:hidden;background:var(--n100)}
+.photo-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.upload-overlay{position:absolute;inset:0;background:rgba(12,68,124,.55);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;border-radius:50%;cursor:pointer}
+.photo-wrap:hover .upload-overlay{opacity:1}
+.upload-overlay svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:1.8}
+.upload-input{display:none}
+
+/* FEATURED RING */
+.card-featured{box-shadow:0 0 0 2.5px var(--n400)}
+.feat-label{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:100px}
+
+/* CARD BODY */
+.card-body{padding:44px 22px 18px}
+.card-name{font-size:1.05rem;font-weight:700;color:var(--n900);margin-bottom:2px}
+.card-role{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--n400);margin-bottom:12px}
+.card-bio{font-size:.84rem;color:#4a6a8a;line-height:1.7;margin-bottom:16px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:.68rem;font-weight:500;padding:3px 10px;border-radius:100px;background:var(--n50);color:var(--n700);border:1px solid var(--n100)}
+
+/* CARD FOOTER */
+.card-foot{padding:14px 22px;border-top:1px solid rgba(55,138,221,.1);display:flex;gap:8px}
+.soc{width:28px;height:28px;border-radius:8px;background:var(--n50);border:1px solid var(--n100);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:.65rem;font-weight:700;color:var(--n700);transition:background .18s,color .18s}
+.soc:hover{background:var(--n500);color:#fff;border-color:var(--n500)}
+
+/* ABOUT BAND */
+.about{background:var(--n800);padding:80px 6vw;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+@media(max-width:680px){.about{grid-template-columns:1fr}.nav-links{display:none}.hero-stats{gap:24px}}
+.about h2{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:18px}
+.about h2 em{font-style:normal;color:var(--n200)}
+.about p{color:rgba(255,255,255,.55);font-size:.93rem;line-height:1.85;margin-bottom:12px}
+.values{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.val{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:18px}
+.val-icon{font-size:1.3rem;margin-bottom:8px}
+.val h4{font-size:.88rem;font-weight:700;color:#fff;margin-bottom:4px}
+.val p{font-size:.78rem;color:rgba(255,255,255,.42);line-height:1.55;margin:0}
+
+/* FOOTER */
+footer{background:var(--n900);border-top:1px solid rgba(255,255,255,.07);padding:30px 6vw;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+footer p{color:rgba(255,255,255,.3);font-size:.78rem}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">dev<span>team</span></div>
+  <div class="nav-links">
+    <a href="#team">Team</a>
+    <a href="#about">About</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-ring r1"></div>
+  <div class="hero-ring r2"></div>
+  <div class="hero-pill"><span class="dot"></span>Meet the developers</div>
+  <h1>The minds <br>behind <em>the system</em></h1>
+  <p>Five passionate builders — coding, designing, and researching to deliver technology that makes a real difference.</p>
+  <div class="hero-stats">
+    <div class="stat"><strong>5</strong><span>Members</span></div>
+    <div class="stat"><strong>3</strong><span>Disciplines</span></div>
+    <div class="stat"><strong>1</strong><span>Vision</span></div>
+  </div>
+</section>
+
+<section class="section" id="team">
+  <div class="section-eyebrow">Our people</div>
+  <div class="section-heading">The developer team</div>
+
+  <!-- PROGRAMMER -->
+  <div class="role-block">
+    <div class="role-row">
+      <span class="role-pill rp-prog">Programmer</span>
+      <div class="role-line"></div>
+    </div>
+
+      <div class="card card-featured">
+        <div class="card-banner cb-prog">
+          <div class="card-banner-dots"></div>
+          <span class="feat-label">Lead Dev</span>
+          <div class="photo-wrap" id="wrap-jm">
+            <img id="img-jm" src="5.jpg" alt="JNathan Fabor">
+              <svg viewBox="0 0 24 24"><path d="M12 16v-8m-4 4 4-4 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+            </label>
+            <input class="upload-input" type="file" id="file-jm" accept="image/*" onchange="setPhoto('img-jm',this)">
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Nathan Fabor</div>
+          <div class="card-role">Lead Programmer</div>
+          <p class="card-bio">Full-stack engineer with a passion for clean architecture and scalable systems. Bridges the gap between design and deployment with precision.</p>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">TypeScript</span>
+            <span class="tag">Node.js</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span>
+          </div>
+        </div>
+
+      </div>
+
+  </div>
+
+  <!-- DESIGNERS -->
+  <div class="role-block">
+    <div class="role-row">
+      <span class="role-pill rp-des">Designers</span>
+      <div class="role-line"></div>
+    </div>
+
+      <div class="card">
+        <div class="card-banner cb-des">
+          <div class="card-banner-dots"></div>
+          <div class="photo-wrap" id="wrap-al">
+            <img id="img-al" src="2.jpg" alt="Paul Anjo S. Coronia">
+            <label class="upload-overlay" for="file-al" title="Upload photo">
+              <svg viewBox="0 0 24 24"><path d="M12 16v-8m-4 4 4-4 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+            </label>
+            <input class="upload-input" type="file" id="file-al" accept="image/*" onchange="setPhoto('img-al',this)">
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Paul Anjo S. Coronia</div>
+          <div class="card-role">UI Designer</div>
+          <p class="card-bio">Crafts pixel-perfect interfaces with a deep passion for accessibility and visual storytelling. Figma is her canvas.</p>
+          <div class="tags">
+            <span class="tag">Figma</span><span class="tag">UI Systems</span>
+            <span class="tag">Prototyping</span><span class="tag">Typography</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card">
+        <div class="card-banner cb-des">
+          <div class="card-banner-dots"></div>
+          <div class="photo-wrap" id="wrap-rc">
+            <img id="img-rc" src="713483152_1532545348392490_923977429327031551_n.gif" alt="Junvic Oclarit Ortinez">
+            <label class="upload-overlay" for="file-rc" title="Upload photo">
+              <svg viewBox="0 0 24 24"><path d="M12 16v-8m-4 4 4-4 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+            </label>
+            <input class="upload-input" type="file" id="file-rc" accept="image/*" onchange="setPhoto('img-rc',this)">
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Junvic Oclarit Ortinez</div>
+          <div class="card-role">UX Designer</div>
+          <p class="card-bio">Bridges business goals and intuitive experiences through thorough user journey mapping and human-centered design thinking.</p>
+          <div class="tags">
+            <span class="tag">User Research</span><span class="tag">Wireframing</span>
+            <span class="tag">Usability</span><span class="tag">Flows</span>
+          </div>
+        </div>
+
+      </div>
+
+  </div>
+
+  <!-- RESEARCHERS -->
+  <div class="role-block">
+    <div class="role-row">
+      <span class="role-pill rp-res">Researchers</span>
+      <div class="role-line"></div>
+    </div>
+
+      <div class="card">
+        <div class="card-banner cb-res">
+          <div class="card-banner-dots" style="background-image:radial-gradient(rgba(4,44,83,.15) 1px,transparent 1px);background-size:18px 18px"></div>
+          <div class="photo-wrap" id="wrap-sk">
+            <img id="img-sk" src="4.jpg" alt="Arwin A. Nario">
+            <label class="upload-overlay" for="file-sk" title="Upload photo">
+              <svg viewBox="0 0 24 24"><path d="M12 16v-8m-4 4 4-4 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+            </label>
+            <input class="upload-input" type="file" id="file-sk" accept="image/*" onchange="setPhoto('img-sk',this)">
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Arwin A. Nario</div>
+          <div class="card-role">UX Researcher</div>
+          <p class="card-bio">Turns user interviews and behavioral data into sharp product insights. Makes the invisible visible through rigorous qualitative analysis.</p>
+          <div class="tags">
+            <span class="tag">Interviews</span><span class="tag">Surveys</span>
+            <span class="tag">Data Analysis</span><span class="tag">Affinity Maps</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card">
+        <div class="card-banner cb-res">
+          <div class="card-banner-dots" style="background-image:radial-gradient(rgba(4,44,83,.15) 1px,transparent 1px);background-size:18px 18px"></div>
+          <div class="photo-wrap" id="wrap-do">
+            <img id="img-do" src="3.jpg" alt="Robert Christian D .Cazeñas">
+            <label class="upload-overlay" for="file-do" title="Upload photo">
+              <svg viewBox="0 0 24 24"><path d="M12 16v-8m-4 4 4-4 4 4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+            </label>
+            <input class="upload-input" type="file" id="file-do" accept="image/*" onchange="setPhoto('img-do',this)">
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Robert Christian D .Cazeñas</div>
+          <div class="card-role">Systems Researcher</div>
+          <p class="card-bio">Explores how technical systems interact with human behavior. Grounds every engineering decision in evidence and first principles.</p>
+          <div class="tags">
+            <span class="tag">Systems Thinking</span><span class="tag">Literature Review</span>
+            <span class="tag">Metrics</span><span class="tag">A/B Testing</span>
+          </div>
+        </div>
+
+      </div>
+      
+
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div>
+    <h2>Built on <em>collaboration,</em><br>driven by purpose</h2>
+    <p>We're a compact, cross-functional team combining technical depth with creative vision. Every sprint, every decision, every pixel is guided by one shared goal — build something worth using.</p>
+    <p>Founded on the belief that the best products come from tight-knit teams who communicate openly and challenge each other to do better work every day.</p>
+  </div>
+  <div class="values">
+    <div class="val"><div class="val-icon">⚡</div><h4>Move fast</h4><p>Ship early, iterate often, learn from real usage.</p></div>
+    <div class="val"><div class="val-icon">🔍</div><h4>Stay curious</h4><p>Question assumptions. Research before building.</p></div>
+    <div class="val"><div class="val-icon">🤝</div><h4>Collaborate</h4><p>Design, code, and research work together.</p></div>
+    <div class="val"><div class="val-icon">🎯</div><h4>User-first</h4><p>Every decision traces back to real human needs.</p></div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="nav-logo">dev<span>team</span></div>
+  <p>© 2026 DevTeam. All rights reserved.</p>
+  <p>hello@devteam.io</p>
+</footer>
+
+<script>
+function setPhoto(imgId, input) {
+  if (!input.files || !input.files[0]) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var img = document.getElementById(imgId);
+    if (img) img.src = e.target.result;
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+</script>
+</body>
+</html>
