@@ -78,28 +78,44 @@ $resultAssets->free();
 $total_assets = count($filteredAssets);
 
 if ($total_assets > 0) {
-    // Include Bootstrap CSS & JS or your preferred toast library in your HTML head/body
     ?>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-      <div id="assetToast" class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-          <div class="toast-body">
-            You have <?php echo $total_assets; ?> asset(s) assigned to you.
-          </div>
-          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-      </div>
+    <!-- Native Bootstrap 4 / AdminLTE toast - NO Bootstrap 5 CDN needed -->
+    <div id="assetToastWrapper" style="
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+        min-width: 280px;
+        background: #007bff;
+        color: #fff;
+        border-radius: 6px;
+        padding: 14px 18px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    ">
+        <span>You have <strong><?php echo $total_assets; ?></strong> asset(s) assigned to you.</span>
+        <button onclick="document.getElementById('assetToastWrapper').style.display='none';"
+            style="background:none;border:none;color:#fff;font-size:18px;cursor:pointer;margin-left:12px;line-height:1;"
+            aria-label="Close">&times;</button>
     </div>
-
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        var toastEl = document.getElementById('assetToast');
-        var toast = new bootstrap.Toast(toastEl);
-        toast.show();
-      });
+        document.addEventListener('DOMContentLoaded', function () {
+            var toast = document.getElementById('assetToastWrapper');
+            if (toast) {
+                // Fade in
+                setTimeout(function() { toast.style.opacity = '1'; }, 100);
+                // Auto-dismiss after 5 seconds
+                setTimeout(function() {
+                    toast.style.opacity = '0';
+                    setTimeout(function() { toast.style.display = 'none'; }, 400);
+                }, 5000);
+            }
+        });
     </script>
     <?php
 } // else no notification if no assets or all are completed
