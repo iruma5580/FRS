@@ -8,9 +8,6 @@
 .env.production
 config.php
 
-# --- Database connection (contains credentials) ---
-include/db_connect.php
-
 # --- Uploaded files (user-generated content, can be large) ---
 uploads/
 qrcodes/
