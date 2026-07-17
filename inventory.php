@@ -470,12 +470,12 @@ function flash($key) {
                                     </div>
 
                                     <!-- Add Asset Modal -->
-                                    <div id="modalAdd" class="modal" tabindex="-1" role="dialog" aria-labelledby="modalAddTitle" aria-hidden="true" style="display:none;">
+                                    <div id="modalAdd" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalAddTitle" aria-hidden="true">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="modalAddTitle">Add New Asset</h5>
-                                            <!-- <button type="button" class="btn-close" aria-label="Close" onclick="closeModal('modalAdd')"></button> -->
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         </div>
                                         <div class="modal-body">
                                             <form method="post" id="formAdd" enctype="multipart/form-data">
@@ -538,12 +538,12 @@ function flash($key) {
                                     </div>
 
                                     <!-- Edit Asset Modal -->
-                                    <div id="modalEdit" class="modal" tabindex="-1" role="dialog" aria-labelledby="modalEditTitle" aria-hidden="true" style="display:none;">
+                                    <div id="modalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalEditTitle" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="modalEditTitle">Edit Asset</h5>
-                                            <!-- <button type="button" class="btn-close" aria-label="Close" onclick="closeModal('modalEdit')"></button> -->
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         </div>
                                         <div class="modal-body">
                                             <form method="post" id="formEdit" enctype="multipart/form-data">
@@ -636,26 +636,7 @@ function flash($key) {
     <!-- ./wrapper -->
     <?php include_once('./include/scripts.php');?>
     <?php include_once('./scripts/inventoryscripts.php');?>
-    
-    <!-- DataTables Buttons CSS and JS -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css" />
-  <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
 
-
-    <script>
-    // Only bind the PHP-rendered variable. The rest of the modal logic is in inventoryscripts.php
-    document.getElementById('btnAddAsset').addEventListener('click', () => {
-        const assetCodeInput = document.getElementById('add_asset_code');
-        if (assetCodeInput) {
-            assetCodeInput.value = '<?= htmlspecialchars($nextAssetCode, ENT_QUOTES, 'UTF-8') ?>';
-        }
-    });
-    </script>
 
     <script>
         // $(document).ready(function() {
