@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-
+ob_start(); // Globally buffer output for all pages to prevent headers-already-sent errors
 require './include/db_connect.php';
 
 if (!isset($_SESSION['user_id'])) {
@@ -122,6 +122,3 @@ if ($total_assets > 0) {
 
 $stmt->close();
 ?>
-
-
-
