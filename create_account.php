@@ -1,4 +1,5 @@
 <?php
+  ob_start();
   include_once('./include/db_connect.php');
   include_once('./include/dashboard_session.php');
   include_once('./include/view_account_connection.php');
