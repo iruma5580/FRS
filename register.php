@@ -39,8 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $stmt->close();
 
       $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-      $insert_sql = "INSERT INTO users (username, password_hash, email, fullname, status, created_at)
-                     VALUES (?, ?, ?, ?, 'active', NOW())";
+      $insert_sql = "INSERT INTO users (username, password_hash, email, fullname, password, status, created_at)
+                     VALUES (?, ?, ?, ?, 'default_password', 'active', NOW())";
       $insert_stmt = $conn->prepare($insert_sql);
       $insert_stmt->bind_param("ssss", $username, $hashed_password, $email, $fullname);
 
