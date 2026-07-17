@@ -9,7 +9,8 @@
 config.php
 
 # --- Uploaded files (user-generated content, can be large) ---
-uploads/
+uploads/*
+!uploads/default-user.jpg
 qrcodes/
 include/uploads/
 include/qrcodes/
