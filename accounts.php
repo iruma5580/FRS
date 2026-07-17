@@ -1,5 +1,5 @@
 <?php
-
+ob_start(); // Prevent "headers already sent" from dashboard_session.php HTML output
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);

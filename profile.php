@@ -1,5 +1,5 @@
 <?php
-
+ob_start(); // Prevent "headers already sent" from dashboard_session.php HTML output
 
 include_once('./include/dashboard_session.php');
 include './include/profile_session.php';
