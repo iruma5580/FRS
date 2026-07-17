@@ -21,7 +21,7 @@ $message = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['user_id']) && !empty($_POST['new_password'])) {
     $uid = (int)$_POST['user_id'];
     $hashed = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
-    $stmt = $conn->prepare("UPDATE users SET password=? WHERE id=?");
+    $stmt = $conn->prepare("UPDATE users SET password_hash=? WHERE id=?");
     $stmt->bind_param("si", $hashed, $uid);
     $stmt->execute();
     $message = "<div style='background:#d4edda;color:#155724;padding:10px;border-radius:4px;margin-bottom:16px;'>
@@ -31,6 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['user_id']) && !empty
     </div>";
     $stmt->close();
 }
+
+// Fetch actual column names to confirm
+$colRes = $conn->query("SHOW COLUMNS FROM users");
+$columns = [];
+while ($col = $colRes->fetch_assoc()) $columns[] = $col['Field'];
+$colRes->free();
 
 // Fetch all users
 $res = $conn->query("SELECT id, username, email, user_type, status FROM users ORDER BY user_type DESC, id ASC");
@@ -61,6 +67,11 @@ $res->free();
 <div class="warn">⚠️ <strong>Security Warning:</strong> Delete <code>reset_admin.php</code> from your server immediately after use!</div>
 
 <?= $message ?>
+
+<h3>DB Columns in `users` table</h3>
+<p style="background:#e2e3e5;padding:10px;border-radius:4px;font-size:13px;">
+  <?= implode(', ', array_map('htmlspecialchars', $columns)) ?>
+</p>
 
 <h3>All Users</h3>
 <table>
