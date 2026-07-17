@@ -271,7 +271,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Fetch assets list
 $assets = [];
-$res = $conn->query("SELECT * FROM assets WHERE date_finish IS NOT NULL AND date_finish <> '' ");
+$res = $conn->query("SELECT * FROM assets WHERE date_finish IS NOT NULL AND YEAR(date_finish) > 0 ");
 if ($res) {
     while ($row = $res->fetch_assoc()) $assets[] = $row;
     $res->free();
