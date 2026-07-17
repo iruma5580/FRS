@@ -457,38 +457,9 @@ function flash($key) {
                                                 <i class="fas fa-edit"></i> Edit
                                                 </button>
 
-                                                <form method="POST" action="" style="display:inline;" class="deleteForm">
-                                                <input type="hidden" name="action" value="delete" />
-                                                <input type="hidden" name="id" value="<?= e($u['id']) ?>" />
-                                                <!-- Delete Button triggers modal -->
-<button type="button" class="btn btn-sm btn-danger no-export" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
-    <i class="fas fa-trash-alt"></i> Delete
-</button>
-
-<!-- Modal HTML -->
-<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form method="POST" action="delete.php">
-        <div class="modal-header">
-          <h5 class="modal-title" id="confirmDeleteLabel">Confirm Delete</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Are you sure you want to delete this item?
-          <!-- You can add a hidden input here to pass the item ID -->
-          <input type="hidden" name="item_id" value="PUT_ITEM_ID_HERE">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-danger">Yes, Delete</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-                                                </form>
+                                                <button type="button" class="btn btn-sm btn-danger btnDelete no-export" data-id="<?= e($u['id']) ?>">
+                                                    <i class="fas fa-trash-alt"></i> Delete
+                                                </button>
                                             </td>
                                             </tr>
                                         <?php endforeach; ?>
