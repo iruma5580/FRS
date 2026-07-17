@@ -58,7 +58,8 @@ include './include/profile_session.php';
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
                        src="<?php echo htmlspecialchars( $picture); ?>"
-                       alt="User profile picture">
+                       alt="User profile picture"
+                       onerror="this.onerror=null;this.src='uploads/default-user.jpg';">
                 </div>
 
                 <h3 class="profile-username text-center"><?php echo htmlspecialchars($fullname); ?> - <?php echo htmlspecialchars($username); ?> </h3>
