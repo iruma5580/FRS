@@ -62,61 +62,69 @@
 
     // Auto-focus first input on load
     document.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('username').focus();
+        const usernameEl = document.getElementById('username');
+        if (usernameEl) {
+            usernameEl.focus();
+        }
     });
 </script>
 
 <script>
+document.addEventListener('DOMContentLoaded', () => {
   const logoutBtn = document.getElementById('logoutBtn');
   const modal = document.getElementById('logoutModal');
   const confirmBtn = document.getElementById('confirmLogout');
   const cancelBtn = document.getElementById('cancelLogout');
   const logoutForm = document.getElementById('logoutForm');
 
-  // Show modal on logout button click
-  logoutBtn.addEventListener('click', () => {
-    modal.setAttribute('aria-hidden', 'false');
-    modal.focus();
-  });
+  if (logoutBtn && modal && confirmBtn && cancelBtn && logoutForm) {
+    // Show modal on logout button click
+    logoutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal.setAttribute('aria-hidden', 'false');
+      modal.focus();
+    });
 
-  // Confirm logout: submit hidden form
-  confirmBtn.addEventListener('click', () => {
-    modal.setAttribute('aria-hidden', 'true');
-    logoutForm.submit();
-  });
-
-  // Cancel logout: hide modal
-  cancelBtn.addEventListener('click', () => {
-    modal.setAttribute('aria-hidden', 'true');
-  });
-
-  // Close modal on Escape key
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+    // Confirm logout: submit hidden form
+    confirmBtn.addEventListener('click', () => {
       modal.setAttribute('aria-hidden', 'true');
-    }
-  });
+      logoutForm.submit();
+    });
 
-  // Trap focus inside modal when open (basic)
-  modal.addEventListener('keydown', (e) => {
-    if (e.key === 'Tab') {
-      const focusable = modal.querySelectorAll('button');
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
+    // Cancel logout: hide modal
+    cancelBtn.addEventListener('click', () => {
+      modal.setAttribute('aria-hidden', 'true');
+    });
 
-      if (e.shiftKey) {
-        if (document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        }
-      } else {
-        if (document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
+    // Close modal on Escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+        modal.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    // Trap focus inside modal when open (basic)
+    modal.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        const focusable = modal.querySelectorAll('button');
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
         }
       }
-    }
-  });
+    });
+  }
+});
 </script>
 
 <script>
