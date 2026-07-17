@@ -151,7 +151,7 @@ $actual_link = $_GET['page'] ?? '';
                   if ($isAdmin) {
                       // Admin sees all assets with date_finish filter
                       $user_query = "SELECT * FROM assets 
-                                    WHERE date_finish IS NOT NULL AND date_finish != '' 
+                                    WHERE date_finish IS NOT NULL AND date_finish > '0000-00-00' 
                                     ORDER BY id DESC";
                   } else {
                       // Non-admin sees only their assigned assets with date_finish filter
@@ -164,7 +164,7 @@ $actual_link = $_GET['page'] ?? '';
 
                       $user_query = "SELECT * FROM assets 
                                     WHERE assigned_person_to_fix = '$assignedUserEscaped' 
-                                      AND date_finish IS NOT NULL AND date_finish != '' 
+                                      AND date_finish IS NOT NULL AND date_finish > '0000-00-00' 
                                     ORDER BY id DESC";
                   }
 
