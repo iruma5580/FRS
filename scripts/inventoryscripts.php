@@ -64,19 +64,11 @@
   //Inventory.php script
 // Utility to open modal
 function openModal(modalId) {
-  const modalEl = document.getElementById(modalId);
-  if (modalEl) {
-    const modal = new bootstrap.Modal(modalEl);
-    modal.show();
-  }
+  $('#' + modalId).modal('show');
 }
 // Utility to close modal
 function closeModal(modalId) {
-  const modalEl = document.getElementById(modalId);
-  if (modalEl) {
-    const modal = bootstrap.Modal.getInstance(modalEl);
-    if (modal) modal.hide();
-  }
+  $('#' + modalId).modal('hide');
 }
 
 // Close modals on clicking close button or outside modal content
@@ -91,11 +83,10 @@ document.querySelectorAll('.modal-close').forEach(btn => {
 document.querySelectorAll('td img').forEach(img => {
   img.style.cursor = 'pointer';
   img.addEventListener('click', () => {
-    const modal = new bootstrap.Modal(document.getElementById('imgPreviewModal'));
     const modalImg = document.getElementById('imgPreview');
     modalImg.src = img.src;
     modalImg.alt = img.alt || 'Image preview';
-    modal.show();
+    $('#imgPreviewModal').modal('show');
   });
 });
 

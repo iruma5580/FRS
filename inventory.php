@@ -648,103 +648,13 @@ function flash($key) {
 
 
     <script>
-    // Utility functions to open/close modals (for your Add/Edit modals)
-    // function openModal(modalId) {
-    //     const modal = document.getElementById(modalId);
-    //     if (modal) {
-    //     modal.style.display = 'block';
-    //     modal.setAttribute('aria-hidden', 'false');
-    //     }
-    // }
-    // function closeModal(modalId) {
-    //     const modal = document.getElementById(modalId);
-    //     if (modal) {
-    //     modal.style.display = 'none';
-    //     modal.setAttribute('aria-hidden', 'true');
-    //     }
-    // }
-    function openModal(modalId) {
-    const modalEl = document.getElementById(modalId);
-    if (modalEl) {
-        const modal = new bootstrap.Modal(modalEl);
-        modal.show();
-    }
-    }
-
-    function closeModal(modalId) {
-    const modalEl = document.getElementById(modalId);
-    if (modalEl) {
-        const modal = bootstrap.Modal.getInstance(modalEl);
-        if (modal) modal.hide();
-    }
-    }
-
-
-    // Add Asset modal open
+    // Only bind the PHP-rendered variable. The rest of the modal logic is in inventoryscripts.php
     document.getElementById('btnAddAsset').addEventListener('click', () => {
-        const formAdd = document.getElementById('formAdd');
-        formAdd.reset();
-        openModal('modalAdd');
-    });
-
-    // Edit Asset modal open and populate
-    document.querySelectorAll('.btnEdit').forEach(button => {
-        button.addEventListener('click', e => {
-        const tr = e.target.closest('tr');
-        if (!tr) return;
-
-        const formEdit = document.getElementById('formEdit');
-        formEdit.elements['id'].value = tr.getAttribute('data-id');
-        formEdit.elements['asset_code'].value = tr.getAttribute('data-asset_code');
-        formEdit.elements['asset_name'].value = tr.getAttribute('data-asset_name');
-        formEdit.elements['category'].value = tr.getAttribute('data-category');
-        formEdit.elements['location_name'].value = tr.getAttribute('data-location_name');
-        formEdit.elements['status'].value = tr.getAttribute('data-status');
-        formEdit.elements['assigned_user'].value = tr.getAttribute('data-assigned_user');
-
-        const currentImagePreview = document.getElementById('currentImagePreview');
-        const imgCell = tr.querySelector('td img');
-        if (imgCell) {
-            currentImagePreview.innerHTML = `<img src="${imgCell.src}" alt="Current Image" style="max-width:150px; max-height:150px; border:1px solid #ccc; border-radius:4px;" />`;
-        } else {
-            currentImagePreview.innerHTML = '';
+        const assetCodeInput = document.getElementById('add_asset_code');
+        if (assetCodeInput) {
+            assetCodeInput.value = '<?= htmlspecialchars($nextAssetCode, ENT_QUOTES, 'UTF-8') ?>';
         }
-
-        openModal('modalEdit');
-        });
     });
-
-    // Bootstrap modal instance for image preview
-    const imgPreviewModal = new bootstrap.Modal(document.getElementById('imgPreviewModal'));
-    const modalImg = document.getElementById('imgPreview');
-
-    // Image thumbnail click to open Bootstrap modal preview
-    document.querySelectorAll('td img').forEach(img => {
-        img.style.cursor = 'pointer';
-        img.addEventListener('click', () => {
-        modalImg.src = img.src;
-        modalImg.alt = img.alt || 'Image preview';
-        imgPreviewModal.show();
-        });
-    });
-
-    // Close your custom modals on clicking outside or close buttons
-    document.querySelectorAll('.modal').forEach(modal => {
-        modal.addEventListener('click', e => {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-            modal.setAttribute('aria-hidden', 'true');
-        }
-        });
-    });
-
-    document.getElementById('btnAddAsset').addEventListener('click', () => {
-        const formAdd = document.getElementById('formAdd');
-        formAdd.reset();
-        document.getElementById('add_asset_code').value = '<?= htmlspecialchars($nextAssetCode, ENT_QUOTES, 'UTF-8') ?>';
-        openModal('modalAdd');
-    });
-
     </script>
 
     <script>
